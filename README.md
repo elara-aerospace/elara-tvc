@@ -1,4 +1,4 @@
-# elara-tvc
+# Elara Aerospace Trust Vector Control (TVC) 
 
 [![CircleCI Build status](https://circleci.com/gh/elara-aerospace/elara-tvc.svg?style=shield)](https://circleci.com/gh/elara-aerospace/elara-tvc)
 [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/x3at1roteloalwas?svg=true)](https://ci.appveyor.com/project/suriyaa/elara-tvc)
