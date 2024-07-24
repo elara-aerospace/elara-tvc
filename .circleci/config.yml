@@ -1,0 +1,36 @@
+# CircleCI
+version: 2.1
+
+orbs:
+  python: circleci/python@2.1.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - python/install-packages:
+          pkg-manager: pip
+      - run:
+          name: Install GCC
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y gcc
+      - run:
+          name: Compile C library
+          command: gcc -shared -o tvc_hardware.so -fPIC tvc_hardware.c
+      - run:
+          name: Run tests
+          command: python -m unittest discover tests
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: tr1
+
+workflows:
+  version: 2
+  build-test:
+    jobs:
+      - build-and-test

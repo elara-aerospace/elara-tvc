@@ -1,0 +1,27 @@
+# AppVeyor CI
+version: '1.0.{build}'
+
+image: Visual Studio 2019
+
+environment:
+  matrix:
+    - PYTHON: "C:\\Python39"
+      PYTHON_VERSION: "3.9"
+      PYTHON_ARCH: "32"
+
+install:
+  - "%PYTHON%\\python.exe -m pip install -U pip"
+  - "%PYTHON%\\python.exe -m pip install -r requirements.txt"
+
+build_script:
+  - call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat"
+  - cl /LD tvc_hardware.c /Fe:tvc_hardware.dll
+
+test_script:
+  - "%PYTHON%\\python.exe -m unittest discover tests"
+
+artifacts:
+  - path: tvc_hardware.dll
+    name: TVC Hardware DLL
+
+deploy: off
